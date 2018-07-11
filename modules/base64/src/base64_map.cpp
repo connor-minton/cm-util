@@ -68,6 +68,27 @@ namespace base64 {
     chars[3] = index_to_b64digit(bytes[2] & 0x3f);
   }
 
+  void binary_to_ascii(const char bytes[3], char chars[4], int num_padding) {
+    binary_to_ascii(bytes, chars);
+    if (num_padding == 2) {
+      chars[2] = chars[3] = PADDING;
+      char new_index = b64digit_to_index(chars[1]) & 0xf0;
+      chars[1] = index_to_b64digit(new_index);
+    }
+    else if (num_padding == 1) {
+      chars[3] = PADDING;
+      char new_index = b64digit_to_index(chars[2]) & 0xfc;
+      chars[2] = index_to_b64digit(new_index);
+    }
+    else {
+      // unexpected input. throw an error
+      std::stringstream ss;
+      ss << "binary_to_ascii(char[3],char[4],int): expected padding to be"
+          << " 2 or 3. Actual value: " << num_padding;
+      throw std::invalid_argument(ss.str());
+    }
+  }
+
   void ascii_to_binary(const char chars[4], char bytes[3]) {
     char indices[4];
     indices[0] = b64digit_to_index(chars[0]);
