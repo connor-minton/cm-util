@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A set of custom Unix utilities",
   "main": "index.js",
+  "repository": "https://github.com/connor-minton/cm-util",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "util/build.sh"
