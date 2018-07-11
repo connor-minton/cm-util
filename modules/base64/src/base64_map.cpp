@@ -64,7 +64,7 @@ namespace base64 {
   void binary_to_ascii(const char bytes[3], char chars[4]) {
     chars[0] = index_to_b64digit((bytes[0] & 0xfc) >> 2);
     chars[1] = index_to_b64digit(((bytes[0] & 0x3) << 4) | ((bytes[1] & 0xf0) >> 4));
-    chars[2] = index_to_b64digit(((bytes[1] & 0xf) << 2) | ((bytes[2] & 0xc0) >> 4));
+    chars[2] = index_to_b64digit(((bytes[1] & 0xf) << 2) | ((bytes[2] & 0xc0) >> 6));
     chars[3] = index_to_b64digit(bytes[2] & 0x3f);
   }
 
